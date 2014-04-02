@@ -5,10 +5,6 @@ require './log_entry.rb'
 
 Mongoid.load!("mongoid.yml")
 
-get '/' do
-  'Ola Mundo!'
-end
-
 post '/' do
   params = JSON.parse(request.env["rack.input"].read)
 
