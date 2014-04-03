@@ -17,6 +17,8 @@ GEM
     moped (1.5.2)
     multi_json (1.9.2)
     origin (1.1.0)
+    puma (2.8.1)
+      rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
@@ -32,4 +34,5 @@ PLATFORMS
 
 DEPENDENCIES
   mongoid (~> 3.1.6)
+  puma
   sinatra
