@@ -15,7 +15,7 @@
 	 visitor_id: 123,
 	 created_at: 2014-04-01,
 	 event_type: 'click',
-	 data: {product_id: 1001},
+	 data: {productId: 1001},
 	 subject: 'fb_mais' 
 	}
 
@@ -23,7 +23,7 @@
 	 visitor_id: 123,
 	 created_at: 2014-04-01,
 	 event_type: 'action',
-	 data: {product_id: [1001, 1002]},
+	 data: {productId: [1001, 1002]},
 	}
 
 
@@ -65,7 +65,7 @@ map = function() {
 	for (var i = this.value.events.length - 1; i >= 0; i--) {
 		event = this.value.events[i]
 		if (event.type == 'click') {
-			productIds[event.data.product_id] = event.subject	
+			productIds[event.data.productId] = event.subject	
 		}
 	};
 
@@ -74,7 +74,8 @@ map = function() {
 		var subject = event.subject;
 
 		if (event.type == 'action') {
-			boughtProducts = event.data.product_id;
+			boughtProducts = event.data.productId;
+
 			var has=false;
 
 			for (var j = boughtProducts.length - 1; j >= 0; j--) {
@@ -114,7 +115,6 @@ reduce = function(subject, events) {
 finalize = function(subject, reducedVal) {
     reducedVal.ctr = reducedVal.click / reducedVal.view ;
     reducedVal.conversion = reducedVal.action / reducedVal.click ;
-    print(reducedVal.ctr);
     return reducedVal;
 }
 
