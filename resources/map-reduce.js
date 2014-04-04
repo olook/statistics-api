@@ -61,16 +61,21 @@ db.visitor_view.find();
 
 map = function() {
 	var productIds = {};
+	var events = this.value.events;
+	if (events == undefined) {
+		emit(this.value.subject, {'view':1, 'action': 0, 'click': 0});
+		return;
+	}
 
-	for (var i = this.value.events.length - 1; i >= 0; i--) {
-		event = this.value.events[i]
+	for (var i = events.length - 1; i >= 0; i--) {
+		event = events[i]
 		if (event.type == 'click') {
 			productIds[event.data.productId] = event.subject	
 		}
 	};
 
-	for (var i = this.value.events.length - 1; i >= 0; i--) {
-		event = this.value.events[i];
+	for (var i = events.length - 1; i >= 0; i--) {
+		event = events[i];
 		var subject = event.subject;
 
 		if (event.type == 'action') {
