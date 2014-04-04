@@ -11,6 +11,9 @@ options '/' do
   headers['Access-Control-Allow-Headers'] ="Content-type"
 end
 
+get '/' do
+  "It's Alive!!!"
+end
 
 post '/' do
   params = JSON.parse(request.env["rack.input"].read)
