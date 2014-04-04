@@ -3,7 +3,7 @@ require 'mongoid'
 require 'json'
 require './log_entry.rb'
 
-Mongoid.load!("mongoid.yml")
+Mongoid.load!("./config/mongoid.yml")
 
 options '/' do
   headers['Access-Control-Allow-Origin'] = "*"
