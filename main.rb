@@ -3,7 +3,7 @@ require 'mongoid'
 require 'json'
 require './log_entry.rb'
 
-Mongoid.load!("mongoid.yml")
+Mongoid.load!("./config/mongoid.yml")
 
 options '/' do
   headers['Access-Control-Allow-Origin'] = "*"
@@ -11,6 +11,9 @@ options '/' do
   headers['Access-Control-Allow-Headers'] ="Content-type"
 end
 
+get '/' do
+  "It's Alive!!!"
+end
 
 post '/' do
   params = JSON.parse(request.env["rack.input"].read)
