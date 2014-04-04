@@ -1,5 +1,10 @@
 log_event = function(type, subject, data) {
 
+	// Avoid hiting the stats server with dev and staging data.
+	if(window.location.host != 'www.olook.com.br') {
+		return;
+	}
+
 	var visitorId = getCookie('visitorId');
 	if (visitorId == undefined) {
 		visitorId = makeid();
