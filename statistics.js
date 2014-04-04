@@ -15,9 +15,13 @@ log_event = function(type, subject, data) {
 	}
 
 	str_json = JSON.stringify(log);
-	request.open("POST", "http://localhost:4567", false);
-	request.setRequestHeader("Content-type", "application/json");
-	request.send(str_json);
+	try {
+		request.open("POST", "http://stats.olook.com.br", false);
+		request.setRequestHeader("Content-type", "application/json");
+		request.send(str_json);
+	} catch (ex) {
+		// console.log(ex);
+	}
 }
 
 function setCookie(name, value) { 
