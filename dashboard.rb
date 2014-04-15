@@ -91,8 +91,8 @@ EOF
     }
 
     LogEntry.map_reduce(mapToVisitor, reduceToVisitor).out(replace: "visitors").count
-    Visitor.map_reduce(map, reduce).out(replace: 'stats').finalize(finalize)
-    
+    Visitor.map_reduce(map, reduce).out(replace: 'reports').finalize(finalize).count
+
   end 
 
 end

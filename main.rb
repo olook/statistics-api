@@ -24,7 +24,7 @@ get '/' do
 
   html = "<table border='1'><tr><th>Assunto</th><th>Visualizações</th><th>Cliques</th><th>CTR</th><th>Compras</th><th>Conversão</th></tr>"
 
-  html += Stat.all.map do |subject|
+  html += Report.all.map do |subject|
     views = subject["value"]["view"].round(2)
     clicks = subject["value"]["click"].round(2)
     ctr = subject["value"]["ctr"].round(2) * 100

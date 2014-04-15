@@ -1,4 +1,4 @@
-class Stat
+class Report
   include Mongoid::Document
 
   field :actions
