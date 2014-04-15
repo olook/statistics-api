@@ -12,19 +12,25 @@ options '/' do
   headers['Access-Control-Allow-Headers'] ="Content-type"
 end
 
+post '/dashboard' do
+  dashboard = Dashboard.new
+  dashboard.run
+end
+
+
 get '/' do
   dashboard = Dashboard.new
 
-  html = "<table><tr><th>Campanha</th><th>Visualizações</th><th>Cliques</th><th>CTR</th><th>Compras</th><th>Conversão</th></tr>"
+  html = "<table border='1'><tr><th>Assunto</th><th>Visualizações</th><th>Cliques</th><th>CTR</th><th>Compras</th><th>Conversão</th></tr>"
+
   html += dashboard.run.map do |subject|
-    views = subject["value"]["view"]
-    clicks = subject["value"]["click"]
-    ctr = subject["value"]["ctr"]
-    actions = subject["value"]["action"]
-    conversion = subject["value"]["conversion"] == "NaN" ? "-" : subject["value"]["conversion"]
+    views = subject["value"]["view"].round(2)
+    clicks = subject["value"]["click"].round(2)
+    ctr = subject["value"]["ctr"].round(2) * 100
+    actions = subject["value"]["action"].round(2)
+    conversion = subject["value"]["conversion"] == "NaN" ? "-" : subject["value"]["conversion"].round(2) * 100
 
-
-    "<tr><td>#{subject["_id"]}</td><td>#{views}</td><td>#{clicks}</td><td>#{ctr}</td><td>#{actions}</td><td>#{conversion}</td></tr>"
+    "<tr><td>#{subject["_id"]}</td><td>#{views}</td><td>#{clicks}</td><td>#{ctr} %</td><td>#{actions}</td><td>#{conversion} %</td></tr>"
   end.join()
 
   html += "</table>"

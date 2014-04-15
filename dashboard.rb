@@ -90,12 +90,10 @@ EOF
       }            
     }
 
-    r = LogEntry.map_reduce(mapToVisitor, reduceToVisitor).out(replace: "visitors")
-    puts "counts: #{r.counts}"
+    LogEntry.map_reduce(mapToVisitor, reduceToVisitor).out(replace: "visitors").count
 
-    r = Visitor.map_reduce(map, reduce).out(replace: 'result').finalize(finalize)
-    puts "counts: #{r.counts}"
-    r
+    Visitor.map_reduce(map, reduce).out(replace: 'result').finalize(finalize)
+    
   end 
 
 end
