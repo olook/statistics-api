@@ -3,7 +3,7 @@ require 'mongoid'
 require 'json'
 require './log_entry.rb'
 require './dashboard.rb'
-require './stat.rb'
+require './report.rb'
 
 Mongoid.load!("./config/mongoid.yml")
 
@@ -14,14 +14,16 @@ options '/' do
 end
 
 post '/dashboard' do
+  puts "rodando o dashboard"
   dashboard = Dashboard.new
   dashboard.run
+  puts "dashboard gerado."
   status 200
 end
 
 
 get '/' do
-
+  puts "gerando o relatorio: #{Report.all.count}"
   html = "<table border='1'><tr><th>Assunto</th><th>Visualizações</th><th>Cliques</th><th>CTR</th><th>Compras</th><th>Conversão</th></tr>"
 
   html += Report.all.map do |subject|
@@ -36,6 +38,7 @@ get '/' do
 
   html += "</table>"
 
+  puts "relatorio gerado"
   html
 end
 
