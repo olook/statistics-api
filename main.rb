@@ -14,8 +14,10 @@ options '/' do
 end
 
 post '/dashboard' do
+  puts "rodando o dashboard"
   dashboard = Dashboard.new
   dashboard.run
+  puts "dashboard gerado."
   status 200
 end
 
