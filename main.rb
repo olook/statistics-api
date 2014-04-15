@@ -29,9 +29,9 @@ get '/' do
   html += Report.all.map do |subject|
     views = subject["value"]["view"].round(2)
     clicks = subject["value"]["click"].round(2)
-    ctr = subject["value"]["ctr"].round(2) * 100
+    ctr = (subject["value"]["ctr"] * 100).round(2)
     actions = subject["value"]["action"].round(2)
-    conversion = subject["value"]["conversion"] == "NaN" ? "-" : subject["value"]["conversion"].round(2) * 100
+    conversion = subject["value"]["conversion"] == "NaN" ? "-" : (subject["value"]["conversion"] * 100).round(2)
 
     "<tr><td>#{subject["_id"]}</td><td>#{views}</td><td>#{clicks}</td><td>#{ctr} %</td><td>#{actions}</td><td>#{conversion} %</td></tr>"
   end.join()
