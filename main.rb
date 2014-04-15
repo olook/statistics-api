@@ -3,6 +3,7 @@ require 'mongoid'
 require 'json'
 require './log_entry.rb'
 require './dashboard.rb'
+require './stat.rb'
 
 Mongoid.load!("./config/mongoid.yml")
 
@@ -15,15 +16,15 @@ end
 post '/dashboard' do
   dashboard = Dashboard.new
   dashboard.run
+  status 200
 end
 
 
 get '/' do
-  dashboard = Dashboard.new
 
   html = "<table border='1'><tr><th>Assunto</th><th>Visualizações</th><th>Cliques</th><th>CTR</th><th>Compras</th><th>Conversão</th></tr>"
 
-  html += dashboard.run.map do |subject|
+  html += Stat.all.map do |subject|
     views = subject["value"]["view"].round(2)
     clicks = subject["value"]["click"].round(2)
     ctr = subject["value"]["ctr"].round(2) * 100
