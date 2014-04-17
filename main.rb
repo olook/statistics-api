@@ -4,6 +4,7 @@ require 'json'
 require './log_entry.rb'
 require './dashboard.rb'
 require './report.rb'
+require './period_report.rb'
 
 Mongoid.load!("./config/mongoid.yml")
 
@@ -21,6 +22,13 @@ post '/dashboard' do
   status 200
 end
 
+post '/period_dashboard' do
+  puts "rodando o dashboard por periodo"
+  dashboard = Dashboard.new
+  dashboard.run_by_period
+  puts "dashboard por periodo gerado."
+  status 200
+end
 
 get '/' do
   puts "gerando o relatorio: #{Report.all.count}"
@@ -34,6 +42,26 @@ get '/' do
     conversion = subject["value"]["conversion"] == "NaN" ? "-" : (subject["value"]["conversion"] * 100).round(2)
 
     "<tr><td>#{subject["_id"]}</td><td>#{views}</td><td>#{clicks}</td><td>#{ctr} %</td><td>#{actions}</td><td>#{conversion} %</td></tr>"
+  end.join()
+
+  html += "</table>"
+
+  puts "relatorio gerado"
+  html
+end
+
+get '/period/:period' do
+  puts "gerando o relatorio do periodo #{params[:period]}: #{PeriodReport.where({"_id.month" => params[:period]}).count}"
+  html = "<h1>Relatorio do Periodo #{params[:period]}</h1><table border='1'><tr><th>Assunto</th><th>Visualizações</th><th>Cliques</th><th>CTR</th><th>Compras</th><th>Conversão</th></tr>"
+
+  html += PeriodReport.where({"_id.month" => params[:period]}).map do |subject|
+    views = subject["value"]["view"].round(2)
+    clicks = subject["value"]["click"].round(2)
+    ctr = (subject["value"]["ctr"] * 100).round(2)
+    actions = subject["value"]["action"].round(2)
+    conversion = subject["value"]["conversion"] == "NaN" ? "-" : (subject["value"]["conversion"] * 100).round(2)
+
+    "<tr><td>#{subject["_id"]["subject"]}</td><td>#{views}</td><td>#{clicks}</td><td>#{ctr} %</td><td>#{actions}</td><td>#{conversion} %</td></tr>"
   end.join()
 
   html += "</table>"

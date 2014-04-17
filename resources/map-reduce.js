@@ -39,8 +39,8 @@ var reduceToVisitor = function(vId, events) {
   return { visitor_id: vId, events: events};
 }
 
-db.log_entries.mapReduce(mapToVisitor, reduceToVisitor, {out: 'visitor_view'});
-db.visitor_view.find();
+db.log_entries.mapReduce(mapToVisitor, reduceToVisitor, {out: 'visitors'});
+db.visitors.find();
 
 /**
   * This, will create a collection like the following
@@ -97,9 +97,9 @@ map = function() {
 
 		var v=a=c=0;
 
-	    if (event.type == 'view') v=1;
-	    if (event.type == 'action') a=1;
-	    if (event.type == 'click') c=1;
+    if (event.type == 'view') v=1;
+    if (event.type == 'action') a=1;
+    if (event.type == 'click') c=1;
 		
 		emit(subject, {'view':v, 'action': a, 'click': c});
 	}
@@ -123,6 +123,6 @@ finalize = function(subject, reducedVal) {
     return reducedVal;
 }
 
-db.visitor_view.mapReduce(map, reduce, {out: 'result', finalize: finalize});
-db.result.find();  
+db.visitors.mapReduce(map, reduce, {out: 'reports', finalize: finalize});
+db.reports.find();  
 
