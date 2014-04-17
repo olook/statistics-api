@@ -97,7 +97,7 @@ EOF
   end
 
   def run_by_period
-    group_by_visitor_and_period period
+    group_by_visitor_and_period
   end
 
   def group_by_visitor_and_period
