@@ -8,6 +8,8 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     builder (3.0.4)
+    haml (4.0.0)
+      tilt
     i18n (0.6.9)
     kgio (2.9.2)
     mongoid (3.1.6)
@@ -22,6 +24,7 @@ GEM
     rack-protection (1.5.2)
       rack
     raindrops (0.13.0)
+    rake (10.0.4)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -37,6 +40,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   mongoid (~> 3.1.6)
+  rake
   sinatra
   unicorn

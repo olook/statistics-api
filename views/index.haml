@@ -1,0 +1,18 @@
+%h1 Stats Dashboard
+
+%table{:style=>"border: 1px; width: 70%;"}
+  %tr
+    %th Assunto
+    %th Visualizações
+    %th Cliques
+    %th CTR
+    %th Compras
+    %th Conversão
+  -Report.get_subjects.each do |subject|
+    %tr
+      %td= subject[:name]
+      %td= subject[:views]
+      %td= subject[:clicks]
+      %td= subject[:ctr]
+      %td= subject[:actions]
+      %td= subject[:conversion]
