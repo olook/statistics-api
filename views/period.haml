@@ -12,7 +12,7 @@
     %th Conversão
   -PeriodReport.get_subjects(@month).each do |subject|
     %tr
-      %td= subject[:name]
+      %td= subject[:name]['subject']
       %td= subject[:views]
       %td= subject[:clicks]
       %td= subject[:ctr]

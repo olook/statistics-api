@@ -38,23 +38,6 @@ end
 get '/period/:period' do
   @month = params[:period]
   haml :period
-  # puts "gerando o relatorio do periodo #{params[:period]}: #{PeriodReport.where({"_id.month" => params[:period]}).count}"
-  # html = "<h1>Relatorio do Periodo #{params[:period]}</h1><table border='1'><tr><th>Assunto</th><th>Visualizações</th><th>Cliques</th><th>CTR</th><th>Compras</th><th>Conversão</th></tr>"
-
-  # html += PeriodReport.where({"_id.month" => params[:period]}).map do |subject|
-  #   views = subject["value"]["view"].round(2)
-  #   clicks = subject["value"]["click"].round(2)
-  #   ctr = (subject["value"]["ctr"] * 100).round(2)
-  #   actions = subject["value"]["action"].round(2)
-  #   conversion = subject["value"]["conversion"] == "NaN" ? "-" : (subject["value"]["conversion"] * 100).round(2)
-
-  #   "<tr><td>#{subject["_id"]["subject"]}</td><td>#{views}</td><td>#{clicks}</td><td>#{ctr} %</td><td>#{actions}</td><td>#{conversion} %</td></tr>"
-  # end.join()
-
-  # html += "</table>"
-
-  # puts "relatorio gerado"
-  # html
 end
 
 get '/statistics.js' do
