@@ -1,0 +1,14 @@
+.report {
+	border-collapse: collapse; 
+	width: 60%
+}
+
+.report tr td {
+	border:1px solid #000000; 
+	text-align: right; 
+	padding: 0.5em;
+}
+
+.report tr:nth-child(even) {
+	background-color: #CCCCCC;
+}

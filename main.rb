@@ -45,7 +45,11 @@ get '/statistics.js' do
 end
 
 post '/' do
-  params = JSON.parse(request.env["rack.input"].read)
+  headers['Access-Control-Allow-Origin'] = "*"
+  headers['Access-Control-Allow-Methods'] = "POST"
+  headers['Access-Control-Allow-Headers'] ="Content-type"
+
+  params = JSON.parse(request.env["rack.input"].read) 
   log = LogEntry.new(params)
 
   if log.save

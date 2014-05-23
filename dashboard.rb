@@ -32,8 +32,10 @@ EOF
 
         for (var i = events.length - 1; i >= 0; i--) {
           event = events[i]
+
           if (event.type == 'click') {
-            productIds[event.data.productId] = event.subject  
+            var subject_data = event.data.value || event.data.productId;
+            productIds[subject_data] = event.subject  
           }
         };
 
@@ -42,7 +44,12 @@ EOF
           var subject = event.subject;
 
           if (event.type == 'action') {
-            boughtProducts = event.data.productId;
+            var subject_data = event.data.value || event.data.productId;
+            if (typeof(subject_data) == 'string') {
+              boughtProducts = [subject_data];
+            } else {
+              boughtProducts = subject_data;
+            }
 
             var has=false;
 
@@ -121,28 +128,45 @@ EOF
         var productIds = {};
         var events = this.value.events;
         if (events == undefined) {
-          emit(this.value.subject, {'view':1, 'action': 0, 'click': 0, 'month': ''});
+          emit({subject: this.value.subject, 'month': this.value.month}, {'view':1, 'action': 0, 'click': 0, 'month': ''});
           return;
         }
 
         for (var i = events.length - 1; i >= 0; i--) {
-          event = events[i]
+          var event = events[i]
+
+
           if (event.type == 'click') {
-            productIds[event.data.productId] = event.subject  
+            var subject_data = event.data.value || event.data.productId;
+            productIds[subject_data] = event.subject  
           }
         };
+
         for (var i = events.length - 1; i >= 0; i--) {
+
+
           event = events[i];
           var subject = event.subject;
 
           if (event.type == 'action') {
-            boughtProducts = event.data.productId;
+            var subject_data = event.data.value || event.data.productId;
+            var subject_data_type = typeof(subject_data);
+
+            if (subject_data_type == 'string') {
+              boughtProducts = [subject_data];
+            } else {
+              boughtProducts = subject_data;
+            }
 
             var has=false;
 
             for (var j = boughtProducts.length - 1; j >= 0; j--) {
+
+
               id = boughtProducts[j]
               subject = productIds[id];
+
+              
               has = subject != undefined;
               if (has) break;
             }
