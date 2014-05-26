@@ -1,4 +1,7 @@
 log_event = function(type, subject, data) {
+  if($skip_log_event === true) {
+    return;
+  }
 
 	// Avoid hiting the stats server with dev and staging data.
 	if(window.location.host != 'www.olook.com.br') {
@@ -11,15 +14,15 @@ log_event = function(type, subject, data) {
 		setCookie('visitorId', visitorId);
 	}
 
-	request = new XMLHttpRequest();
+	var request = new XMLHttpRequest();
 
-	log = {visitor_id: visitorId, type: type, subject: subject};
+	var log = {visitor_id: visitorId, type: type, subject: subject};
 
 	if (data != undefined) {
 		log.data = data;
 	}
 
-	str_json = JSON.stringify(log);
+	var str_json = JSON.stringify(log);
 	try {
 		request.open("POST", "http://stats.olook.com.br", false);
 		request.setRequestHeader("Content-type", "application/json");
