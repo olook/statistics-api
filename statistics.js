@@ -1,5 +1,5 @@
 log_event = function(type, subject, data) {
-  if($skip_log_event === true) {
+  if(typeof $skip_log_event !== 'undefined' && $skip_log_event) {
     return;
   }
 
